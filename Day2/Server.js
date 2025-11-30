@@ -54,30 +54,29 @@ app.put("/users/:id", async (req, res) => {
     const updateUser = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-    res.json({ message: "User updated successful", updateUser });
-    res.status(200).json({ message: "User updated successful", user });
+    res.status(200).json({ message: "User updated successful", updateUser });
   } catch (error) {
     res.status(500).json({ message: "Unable to update user" });
   }
 });
 
-app.delete('/users/:id', async(req, res) => {
-    try {
-        await User.findByIdAndDelete(req.params.id)
-        res.status(200).json({message: 'User deleted successful'})
-    } catch (error) {
-        res.status(500).json({ message: "Unable to delete user" });
-    }
-})
+app.delete("/users/:id", async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "User deleted successful" });
+  } catch (error) {
+    res.status(500).json({ message: "Unable to delete user" });
+  }
+});
 
-app.get('/users/:id', async(req, res) => {
-    try {
-        const user = await User.findById(req.params.id)
-        res.status(200).json({message: 'User fetched', user})
-    } catch (error) {
-        res.status(500).json({ message: "Unable to fetch user" });
-    }
-})
+app.get("/users/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.status(200).json({ message: "User fetched", user });
+  } catch (error) {
+    res.status(500).json({ message: "Unable to fetch user" });
+  }
+});
 
 const PORT = process.env.PORT;
 
