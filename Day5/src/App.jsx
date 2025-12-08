@@ -11,12 +11,17 @@ const App = () => {
 
     const newTodo = {
       text: task,
-      time: time || "No time set"
+      time: time || "No time set",
     };
 
     setTodos([...todos, newTodo]);
     setTask("");
     setTime("");
+  };
+
+  const deleteTodo = (index) => {
+    const updated = todos.filter((_, i) => i !== index);
+    setTodos(updated);
   };
 
   return (
@@ -36,8 +41,17 @@ const App = () => {
                   key={index}
                   className="bg-gray-100 p-3 rounded-lg shadow-sm flex justify-between items-center"
                 >
-                  <span>{item.text}</span>
-                  <span className="text-sm text-gray-600">{item.time}</span>
+                  <div>
+                    <p className="font-medium">{item.text}</p>
+                    <p className="text-sm text-gray-600">{item.time}</p>
+                  </div>
+
+                  <button
+                    onClick={() => deleteTodo(index)}
+                    className="text-red-500 hover:text-red-700 font-medium"
+                  >
+                    Delete
+                  </button>
                 </li>
               ))}
             </ol>
@@ -47,8 +61,8 @@ const App = () => {
         {/* Add Task Form */}
         <div className="bg-white shadow-md rounded-xl p-6">
           <h1 className="text-2xl font-semibold mb-4">Add Task</h1>
+
           <form className="flex flex-col" onSubmit={addTodo}>
-            
             <label className="font-medium mb-1">Task</label>
             <input
               value={task}
@@ -66,14 +80,12 @@ const App = () => {
               className="border border-gray-300 p-2 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
 
-            <button
-              className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition"
-            >
+            <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition">
               Submit
             </button>
-
           </form>
         </div>
+
       </div>
     </div>
   );
